@@ -52,8 +52,12 @@ RUN su - cowrie -c "\
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD etc/cowrie.cfg /cowrie/cowrie-git/etc/cowrie.cfg
+
 USER cowrie
 WORKDIR /cowrie/cowrie-git
+RUN mkdir -p var/log/tty && mkdir var/dl
+
 CMD [ "/cowrie/cowrie-git/bin/cowrie", "start", "-n" ]
-EXPOSE 2222 2223
-VOLUME [ "/cowrie/cowrie-git/etc", "/cowrie/cowrie-git/var" ]
+EXPOSE 2222
+VOLUME /cowrie/cowrie-git/var

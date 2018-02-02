@@ -2,15 +2,19 @@ version: "2.0"
 
 services:
   cowrie:
+    build: .
     restart: always
     # Bug Michel to create a Docker Hub account and build an image from the repo.
     # build: .
-    image: micheloosterhof/cowrie:dev
+    #image: micheloosterhof/cowrie:dev
     ports:
       - "2222:2222"
-      - "2223:2223"
+      # I dont want telnet.
+      #- "2223:2223"
     volumes:
       # Map a local cowrie config dir into the container.
-      # - "./etc:/cowrie/cowrie-git/etc"
+      #- honeyconf:/cowrie/cowrie-git/etc
       # Make cowrie logs persistent through container recreates.
-      - "./var:/cowrie/cowrie-git/var"
+      - honeylog:/cowrie/cowrie-git/var
+volumes:
+  honeylog:
